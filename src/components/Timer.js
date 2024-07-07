@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 const Timer = () => {
-  const [timeLeft, setTimeLeft] = useState(1500); // 25 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(2); // 25 minutes in seconds
   const [isActive, setIsActive] = useState(false);
-
+  // const audio = new Audio('../audio/5-13 ゲットファンファーレ(アイテム).mp3');
+  const audio = new Audio('/assets/audio/5-13 ゲットファンファーレ(アイテム).mp3');    
   useEffect(() => {
     let interval = null;
     if (isActive && timeLeft > 0) {
@@ -12,6 +13,10 @@ const Timer = () => {
       }, 1000);
     } else if (!isActive && timeLeft !== 0) {
       clearInterval(interval);
+    } else if (isActive && timeLeft === 0) {
+        clearInterval(interval);
+        audio.play();
+
     }
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
