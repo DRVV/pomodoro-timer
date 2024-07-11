@@ -7,6 +7,8 @@ const Timer = () => {
   const [isWorkTime, setIsWorkTime] = useState(true);
   const [workDuration, setWorkDuration] = useState(1500);
   const [breakDuration, setBreakDuration] = useState(300);
+  const [sessionCounter, setSessionCounter] = useState(1);
+
   // const audio = new Audio('../audio/5-13 ゲットファンファーレ(アイテム).mp3');
   const workAudio = new Audio('/assets/audio/5-13 ゲットファンファーレ(アイテム).mp3');    
   const breakAudio = new Audio('/assets/audio/5-14 ゲットファンファーレ(克服の証 _ 貴重なアイテム).mp3');  
@@ -26,6 +28,7 @@ const Timer = () => {
             workAudio.play();
         } else {
             breakAudio.play();
+            setSessionCounter(sessionCounter + 1);
         }
 
         // switch betweeen work and break
@@ -45,10 +48,11 @@ const Timer = () => {
     <div>
       
       <h1>{formatTime(timeLeft)} {isWorkTime ? "" : "[break]"}</h1>
-
+      <h3>session: #{sessionCounter}</h3>
       <button onClick={() => setIsActive(!isActive)}>
         {isActive ? "Pause" : "Start"}
       </button>
+      
       <button onClick={() => setTimeLeft(isWorkTime ? workDuration : breakDuration)}>Reset</button>
 
       <CustomDurationPanel setWorkDuration={setWorkDuration} setBreakDuration={setBreakDuration} />
